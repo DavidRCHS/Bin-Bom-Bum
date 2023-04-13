@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="tablero">
+    <!-- Generar cuadrados pequeños -->
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <div class="cuadrado"></div>
+    <!-- Repetir 63 veces para un total de 64 cuadrados -->
+    <!-- Puedes usar JavaScript para generar los cuadrados dinámicamente -->
+  </div>
+  <div class="tablero">
+    <div id="ficha" class="ficha"></div>
+  </div>
+  <audio id="musicaFondo" src="bitbit.mp3" autoplay loop></audio>
+</body>
+<script>
+  // Obtener todos los cuadrados del tablero
+  const cuadrados = document.querySelectorAll('.cuadrado');
+  // Obtener la ficha circular por su ID
+  const ficha = document.getElementById('ficha');
+
+  // Posición inicial de la ficha en el tablero
+  let fila = 0;
+  let columna = 0;
+
+  // Función para mover la ficha
+  function moverFicha(event) {
+    // Obtener la tecla presionada
+    const tecla = event.key;
+
+    // Actualizar la posición de la ficha en función de la tecla presionada
+    switch (tecla) {
+      case 'w': // Mover hacia arriba
+        if (fila > 0) {
+          fila--;
+        }
+        break;
+      case 'a': // Mover hacia la izquierda
+        if (columna > 0) {
+          columna--;
+        }
+        break;
+      case 's': // Mover hacia abajo
+        if (fila < 7) {
+          fila++;
+        }
+        break;
+      case 'd': // Mover hacia la derecha
+        if (columna < 7) {
+          columna++;
+        }
+        break;
+        case 'W': // Mover hacia arriba
+        if (fila > 0) {
+          fila--;
+        }
+        break;
+      case 'A': // Mover hacia la izquierda
+        if (columna > 0) {
+          columna--;
+        }
+        break;
+      case 'S': // Mover hacia abajo
+        if (fila < 7) {
+          fila++;
+        }
+        break;
+      case 'D': // Mover hacia la derecha
+        if (columna < 7) {
+          columna++;
+        }
+        break;
+      default:
+        break;
+    }
+
+    // Actualizar la posición de la ficha en el DOM
+    ficha.style.gridRow = fila + 1;
+    ficha.style.gridColumn = columna + 1;
+
+    obtenerUbicacionFichaYCuadradosDesaparecidos()
+
+
+  }
+
+
+  // Función de comparación personalizada
+  function compararCoordenadas(coordenada, ubicacionFicha) {
+    // const fichax = parseInt(ubicacionFicha.x)+ parseInt(41)
+    console.log(coordenada.x + " == " + ubicacionFicha.x + " && " + coordenada.y + " == " + ubicacionFicha.y)
+    return coordenada.x == ubicacionFicha.x && coordenada.y == ubicacionFicha.y;
+  }
+
+  // Ejecutar la función de desaparecer y aparecer cuadrados cada 2 segundos
+  function obtenerUbicacionFichaYCuadradosDesaparecidos() {
+    const cuadrados = document.getElementsByClassName('cuadrado');
+    const ubicacionesCuadradosDesaparecidos = [];
+
+
+    // Obtener las ubicaciones de los cuadrados desaparecidos
+    for (let i = 0; i < cuadrados.length; i++) {
+      const cuadrado = cuadrados[i];
+      if (cuadrado.style.opacity === '0') {
+        const cuadradoX = cuadrado.offsetLeft;
+        const cuadradoY = cuadrado.offsetTop;
+        ubicacionesCuadradosDesaparecidos.push({ x: cuadradoX, y: cuadradoY });
+      }
+    }
+    console.log(" ficha")
+    const ficha = document.getElementById('ficha');
+
+    // Obtener la ubicación de la ficha
+    const fichaX = ficha.offsetLeft;
+    const fichaY = ficha.offsetTop;
+    const ubicacionFicha = { x: fichaX, y: fichaY };
+    console.log(fichaX + " - " + fichaY)
+
+    // Verificar si el objeto buscado está en el array de coordenadas
+    if (ubicacionesCuadradosDesaparecidos.some(coordenada => compararCoordenadas(coordenada, ubicacionFicha))) {
+      alert('Perdiste');
+    } 
+
+  }
+
+
+  // Escuchar el evento de tecla presionada
+  document.addEventListener('keydown', moverFicha);
+
+
+
+  // Función para hacer que los cuadrados desaparezcan y aparezcan en grupos de 8
+  function desaparecerCuadrados() {
+    
+    // Generar un número aleatorio entre 0 y 63 para seleccionar 8 cuadrados al azar
+    const indicesAleatorios = [];
+    while (indicesAleatorios.length < 10) {
+      const indice = Math.floor(Math.random() * 64);
+      if (!indicesAleatorios.includes(indice)) {
+        indicesAleatorios.push(indice);
+      }
+    }
+
+    // Iterar sobre los cuadrados y aplicar el estilo para hacer que desaparezcan o aparezcan
+    cuadrados.forEach((cuadrado, indice) => {
+      if (indicesAleatorios.includes(indice)) {
+        cuadrado.style.opacity = '0'; // Desaparecer cuadrado
+      } else {
+        cuadrado.style.opacity = '1'; // Aparecer cuadrado
+      }
+    });
+
+    obtenerUbicacionFichaYCuadradosDesaparecidos()
+  }
+
+  // Ejecutar la función de desaparecer y aparecer cuadrados cada 2 segundos
+  setInterval(desaparecerCuadrados, 2000);
+
+</script>
+
+</html>

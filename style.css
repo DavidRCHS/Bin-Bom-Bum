@@ -1,0 +1,36 @@
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  /* 8 columnas */
+  grid-template-rows: repeat(8, 1fr);
+  /* 8 filas */
+  gap: 4px;
+  /* Espacio entre los cuadrados */
+  width: 320px;
+  /* Ancho total del tablero */
+  height: 320px;
+  /* Alto total del tablero */
+  position: fixed;
+}
+
+.cuadrado {
+  background-color: #8a5252;
+  /* Color de fondo de los cuadrados */
+  border-radius: 4px;
+  /* Bordes redondeados */
+}
+
+.ficha {
+  background-color: blue;
+  /* Color de fondo de la ficha (azul en este caso) */
+  border-radius: 50%;
+  /* Forma redondeada para crear una ficha circular */
+  width: 32px;
+  /* Ancho de la ficha */
+  height: 32px;
+  /* Alto de la ficha */
+  /* Añadir estilos de posición para colocar la ficha en la posición inicial en el tablero */
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 2;
+}
